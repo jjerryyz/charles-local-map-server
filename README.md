@@ -2,16 +2,12 @@ server for charles local map files
 
 ## Usage
 
-使用 charles 保存请求到本地目录
+Use charles to save the request to a local directory.
 
-使用 npx 建立服务器
+Start a server:
 
 ```bash
-npx charles-local-map-server <charles request path>
+npx charles-local-map-server <request file path>
 ```
 
-打开 charles 软件，Tools -> Map Remote...，在打开的对话框建立映射关系
-
-## Author
-
-Jerry Zheng
+Open the charles software, Tools -> Map Remote..., establish the mapping relationship in the opened dialog box
