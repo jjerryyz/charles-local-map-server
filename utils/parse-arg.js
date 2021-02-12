@@ -51,9 +51,12 @@ const args = arg({
 
 const cwd = process.cwd();
 args["--path"] = args["--path"] || args["_"].shift() || cwd;
-
 if (!args["--path"]) {
   console.error("please specific local map files");
+}
+
+if (!args['--type']) {
+  args['--type'] = 'chlsj';
 }
 
 // console.log('args',args);
