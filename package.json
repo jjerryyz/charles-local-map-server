@@ -1,6 +1,6 @@
 {
-  "name": "charles-local-map-server",
-  "version": "0.0.4",
+  "name": "charles-mock-server",
+  "version": "0.0.1",
   "description": "server for charles local map files",
   "repository": "jjerryyz/charles-local-map-server",
   "scripts": {
