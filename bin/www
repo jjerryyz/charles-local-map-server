@@ -8,18 +8,24 @@ var app = require('../app');
 var debug = require('debug')('myapp:server');
 var http = require('http');
 
+const argObj = require('../utils/parse-arg');
+const [argPort] = argObj['--listen'];
+
 /**
  * Get port from environment and store in Express.
  */
-
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(argPort || '3000');
 app.set('port', port);
+
+const serverHandler = async (request, response) =>  {
+  return app(request, response);
+}
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(serverHandler);
 
 /**
  * Listen on provided port, on all network interfaces.
