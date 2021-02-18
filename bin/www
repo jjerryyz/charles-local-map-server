@@ -9,7 +9,7 @@ var debug = require('debug')('myapp:server');
 var http = require('http');
 
 const argObj = require('../utils/parse-arg');
-const [argPort] = argObj['--listen'];
+const [argPort] = argObj['--listen'] || [];
 
 /**
  * Get port from environment and store in Express.

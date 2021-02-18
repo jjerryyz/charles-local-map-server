@@ -5,8 +5,10 @@ const router = express.Router();
 const argObj = require("../utils/parse-arg");
 
 router.all("/*", function (req, res, next) {
-  // console.log('req', req.query, req.path);
-
+  console.log('path', argObj['--path']);
+  if (!argObj['--path']) {
+    return;
+  }
   if (argObj['--type'] === 'localMapFile') {
     handleLocalMapFile(req,res,next);
   } else {

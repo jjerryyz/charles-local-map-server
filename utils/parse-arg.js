@@ -1,6 +1,9 @@
 const chalk = require('chalk');
 const arg = require("arg");
+const readPkgUp = require('read-pkg-up');
 const {parse} = require('url');
+const path = require('path');
+const parentDir = path.dirname(module.parent && module.parent.filename ? module.parent.filename : '.');
 
 // Reference from https://github.com/vercel/serve/blob/master/bin/serve.js
 const parseEndpoint = (str) => {
@@ -69,15 +72,25 @@ const getHelp = () => chalk`
           {bold $} {cyan charles-mock-server} -l pipe:\\\\.\\pipe\\{underline PipeName}
 `;
 
+const getVersion = () => {
+  const foundPkg = readPkgUp.sync({
+    cwd: parentDir,
+    normalize: false
+  });
+  return foundPkg.packageJson.version || '';
+}
+
 const args = arg({ 
   "--path": String,
   "--no-header": Boolean,
   "--type": String,
   '--listen': [parseEndpoint],
   '--help': Boolean,
+  '--version': Boolean,
 
   // align
   '-h': '--help',
+  '-v': '--version',
   '-l': '--listen',
   '-p': '--listen'
 });
@@ -86,14 +99,14 @@ const args = arg({
 
 if(args['--help']) {
   console.log(getHelp());
-  return;
+}
+
+if(args['--version']) {
+  console.log(getVersion())
 }
 
 const cwd = process.cwd();
 args["--path"] = args["--path"] || args["_"].shift() || cwd;
-if (!args["--path"]) {
-  console.error("please specific local map files");
-}
 
 if (!args['--type']) {
   args['--type'] = 'chlsj';
