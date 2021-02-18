@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const arg = require("arg");
 const {parse} = require('url');
 
@@ -35,43 +36,37 @@ const parseEndpoint = (str) => {
     throw new Error(`Unknown --listen endpoint scheme (protocol): ${url.protocol}`);
   }
 };
-
+// Reference from https://github.com/vercel/serve/blob/master/bin/serve.js
 const getHelp = () => chalk`
-  {bold.cyan serve} - Static file serving and directory listing
+  {bold.cyan charles-mock-server} - Mock server for charles files
   {bold USAGE}
-      {bold $} {cyan serve} --help
-      {bold $} {cyan serve} --version
-      {bold $} {cyan serve} folder_name
-      {bold $} {cyan serve} [-l {underline listen_uri} [-l ...]] [{underline directory}]
-      By default, {cyan serve} will listen on {bold 0.0.0.0:5000} and serve the
+      {bold $} {cyan charles-mock-server} --help
+      {bold $} {cyan charles-mock-server} --version
+      {bold $} {cyan charles-mock-server} [-p {underline listen_port}] [{underline file path}]
+      By default, {cyan charles-mock-server} will listen on {bold 0.0.0.0:5000} and serve the
       current working directory on that address.
       Specifying a single {bold --listen} argument will overwrite the default, not supplement it.
   {bold OPTIONS}
       --help                              Shows this help message
       -v, --version                       Displays the current version of serve
-      -l, --listen {underline listen_uri}             Specify a URI endpoint on which to listen (see below) -
+      -p, --listen {underline listen_uri}             Specify a URI endpoint on which to listen (see below) -
                                           more than one may be specified to listen in multiple places
-      -d, --debug                         Show debugging information
-      -s, --single                        Rewrite all not-found requests to \`index.html\`
-      -c, --config                        Specify custom path to \`serve.json\`
-      -C, --cors						  Enable CORS, sets \`Access-Control-Allow-Origin\` to \`*\`
-      -n, --no-clipboard                  Do not copy the local address to the clipboard
-      -u, --no-compression                Do not compress files
-      --no-etag                           Send \`Last-Modified\` header instead of \`ETag\`
-      -S, --symlinks                      Resolve symlinks instead of showing 404 errors
-      --ssl-cert                          Optional path to an SSL/TLS certificate to serve with HTTPS
-      --ssl-key                           Optional path to the SSL/TLS certificate\'s private key
+      --type                              Choose charles file type, current support .chlsj file, json request file path
+  {bold TYPE}
+    Support two file formats.
+    {underline JSON REQUEST FILE PATH}, Request file exported using save as in charles, see example for more.
+    {underline CHLSJ} = JSON Session File, which contains all necessary info about request/response.
   {bold ENDPOINTS}
-      Listen endpoints (specified by the {bold --listen} or {bold -l} options above) instruct {cyan serve}
+      Listen endpoints (specified by the {bold --listen} or {bold -l} options above) instruct {cyan charles-mock-server}
       to listen on one or more interfaces/ports, UNIX domain sockets, or Windows named pipes.
       For TCP ports on hostname "localhost":
-          {bold $} {cyan serve} -l {underline 1234}
+          {bold $} {cyan charles-mock-server} -l {underline 1234}
       For TCP (traditional host/port) endpoints:
-          {bold $} {cyan serve} -l tcp://{underline hostname}:{underline 1234}
+          {bold $} {cyan charles-mock-server} -l tcp://{underline hostname}:{underline 1234}
       For UNIX domain socket endpoints:
-          {bold $} {cyan serve} -l unix:{underline /path/to/socket.sock}
+          {bold $} {cyan charles-mock-server} -l unix:{underline /path/to/socket.sock}
       For Windows named pipe endpoints:
-          {bold $} {cyan serve} -l pipe:\\\\.\\pipe\\{underline PipeName}
+          {bold $} {cyan charles-mock-server} -l pipe:\\\\.\\pipe\\{underline PipeName}
 `;
 
 const args = arg({ 
