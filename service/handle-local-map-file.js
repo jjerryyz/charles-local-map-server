@@ -5,7 +5,7 @@ const argObj = require('../utils/parse-arg');
 
 module.exports = function(req, res, next) {
   
-  // console.log('req', req.query, req.path);
+  console.log('handle-local-map-file');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).send(Buffer.from('OPTIONS returns OK', 'utf8'));

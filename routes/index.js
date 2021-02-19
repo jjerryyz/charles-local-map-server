@@ -1,14 +1,15 @@
 const express = require("express");
+const router = express.Router();
+const { getRecordsFromFile } = require("../utils/parse-chlsj");
 const handleChlsj = require("../service/handle-chlsj");
 const handleLocalMapFile = require('../service/handle-local-map-file');
-const router = express.Router();
 const argObj = require("../utils/parse-arg");
 
+if (argObj['--type'] === 'chlsj') {
+  getRecordsFromFile(argObj['--path']);
+}
+
 router.all("/*", function (req, res, next) {
-  console.log('path', argObj['--path']);
-  if (!argObj['--path']) {
-    return;
-  }
   if (argObj['--type'] === 'localMapFile') {
     handleLocalMapFile(req,res,next);
   } else {

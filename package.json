@@ -1,6 +1,6 @@
 {
   "name": "charles-mock-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "server for charles local map files",
   "repository": "jjerryyz/charles-mock-server",
   "scripts": {
@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "arg": "^5.0.0",
+    "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
@@ -24,6 +25,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "lowdb": "^1.0.0",
     "morgan": "~1.9.1",
     "read-pkg-up": "^7.0.1"
   }
